@@ -1,0 +1,42 @@
+---
+title: "prep_app"
+format: html
+author: Powell Braddock
+---
+
+# Numerical Summaries for Investigating the Data
+
+## One-Way Contingency Tables
+
+```{r}
+library(tidyverse)
+melbourne_house_data <- read_csv('MELBOURNE_HOUSE_PRICES_LESS.csv')
+melbourne_house_data
+```
+
+```{r}
+melbourne_house_data |>
+  group_by(Regionname) |>
+  summarize(count = n())
+```
+
+```{r}
+melbourne_house_data |>
+  group_by(Suburb) |>
+  summarize(count = n())
+```
+
+## Two-Way Contingency Tables
+
+```{r}
+melbourne_house_data |>
+  group_by(Suburb, Type) |>
+  summarize(count = n()) |>
+  pivot_wider(names_from = Type, values_from = count)
+```
+
+## Numerical Summaries for Quantitative Variables at Levels of Categorical Variables
+
+# Graphical Summaries for Investigating the Data
+
+## 
