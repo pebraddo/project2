@@ -127,3 +127,4 @@ p <- ggplot(melbourne_house_data, aes(Distance, Price, size = Propertycount, col
 ```{r, echo=FALSE}
 animate(p)
 ```
+

@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ ggplot2   4.0.0     ✔ tibble    3.2.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -134,9 +134,13 @@ dbl (5): Rooms, Price, Postcode, Propertycount, Distance
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="ot">&lt;-</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  melbourne_house_data <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Full_Date =</span> <span class="fu">as.Date</span>(Date, <span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>melbourne_house_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 63,023 × 13
+<pre><code># A tibble: 63,023 × 14
    Suburb   Address Rooms Type    Price Method SellerG Date  Postcode Regionname
    &lt;chr&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;     
  1 Abbotsf… 49 Lit…     3 h     1490000 S      Jellis  1/04…     3067 Northern …
@@ -150,7 +154,8 @@ dbl (5): Rooms, Price, Postcode, Propertycount, Distance
  9 Albanva… 1 Jack…     6 h          NA PI     hockin… 1/04…     3021 Western M…
 10 Albert … 18 Mil…     3 h     1925000 S      Cayzer  1/04…     3206 Southern …
 # ℹ 63,013 more rows
-# ℹ 3 more variables: Propertycount &lt;dbl&gt;, Distance &lt;dbl&gt;, CouncilArea &lt;chr&gt;</code></pre>
+# ℹ 4 more variables: Propertycount &lt;dbl&gt;, Distance &lt;dbl&gt;, CouncilArea &lt;chr&gt;,
+#   Full_Date &lt;date&gt;</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -225,13 +230,868 @@ dbl (5): Rooms, Price, Postcode, Propertycount, Distance
 </section>
 <section id="numerical-summaries-for-quantitative-variables-at-levels-of-categorical-variables" class="level2">
 <h2 class="anchored" data-anchor-id="numerical-summaries-for-quantitative-variables-at-levels-of-categorical-variables">Numerical Summaries for Quantitative Variables at Levels of Categorical Variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Suburb, Type) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(Suburb, Type) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">med_price =</span> <span class="fu">median</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">mean_rooms =</span> <span class="fu">mean</span>(Rooms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">med_rooms =</span> <span class="fu">median</span>(Rooms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Suburb'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 918 × 6
+# Groups:   Suburb [380]
+   Suburb       Type  mean_price med_price mean_rooms med_rooms
+   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Abbotsford   h       1222216.   1200000       2.66       3  
+ 2 Abbotsford   t       1018900     931000       2.57       2.5
+ 3 Abbotsford   u        681011.    658000       1.95       2  
+ 4 Aberfeldie   h       1590831.   1545500       3.53       4  
+ 5 Aberfeldie   t       1090000    1150000       3.18       3  
+ 6 Aberfeldie   u        498222.    411000       1.74       2  
+ 7 Airport West h        836992.    815000       3.26       3  
+ 8 Airport West t        677600     695000       2.74       3  
+ 9 Airport West u        601826.    588500       2.45       2  
+10 Albanvale    h        508737.    506000       3.31       3  
+# ℹ 908 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">Region =</span> <span class="fu">as.factor</span>(Regionname)) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">med_price =</span> <span class="fu">median</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">sd_price =</span> <span class="fu">sd</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+  Region                     mean_price med_price sd_price
+  &lt;fct&gt;                           &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 Eastern Metropolitan         1071837.    990000  415250.
+2 Eastern Victoria              689369.    670000  220135.
+3 Northern Metropolitan         823720.    715000  416156.
+4 Northern Victoria             643082.    590000  269381.
+5 South-Eastern Metropolitan    846235.    780000  359621.
+6 Southern Metropolitan        1373222.   1230000  829559.
+7 Western Metropolitan          800516.    700000  372547.
+8 Western Victoria              412026.    400000  122663.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">Regionname =</span> <span class="fu">factor</span>(Regionname), <span class="at">Type =</span> <span class="fu">factor</span>(Type)) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">med_price =</span> <span class="fu">median</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">sd_price =</span> <span class="fu">sd</span>(Price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">mean_rooms =</span> <span class="fu">mean</span>(Rooms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">med_rooms =</span> <span class="fu">median</span>(Rooms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">sd_rooms =</span> <span class="fu">sd</span>(Rooms, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Regionname'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 8
+# Groups:   Regionname [8]
+   Regionname  Type  mean_price med_price sd_price mean_rooms med_rooms sd_rooms
+   &lt;fct&gt;       &lt;fct&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Eastern Me… h       1148132.   1070000  417619.       3.61         4    0.913
+ 2 Eastern Me… t        916497.    875000  246330.       3.20         3    0.674
+ 3 Eastern Me… u        703789.    670000  219087.       2.46         2    0.596
+ 4 Eastern Vi… h        694976.    672000  219898.       3.60         4    0.787
+ 5 Eastern Vi… t        565500     597500  168635.       2.83         3    0.718
+ 6 Eastern Vi… u        469357.    447000  110928.       2.67         3    0.492
+ 7 Northern M… h        905373.    787000  436730.       3.21         3    0.802
+ 8 Northern M… t        713081.    676500  235115.       2.60         3    0.618
+ 9 Northern M… u        574629.    521500  280870.       1.96         2    0.672
+10 Northern V… h        644728.    589500  272174.       3.58         3    0.761
+# ℹ 13 more rows</code></pre>
+</div>
+</div>
+<p>Measures of Association between two numeric variables: price and number of rooms using pairwise complete observations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">Regionname =</span> <span class="fu">factor</span>(Regionname), <span class="at">Type =</span> <span class="fu">factor</span>(Type)) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">correlation =</span> <span class="fu">cor</span>(Price, Rooms, <span class="at">use =</span> <span class="st">'pairwise.complete.obs'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(correlation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `summarize()`.
+ℹ In argument: `correlation = cor(Price, Rooms, use =
+  "pairwise.complete.obs")`.
+ℹ In group 11: `Regionname = Northern Victoria` and `Type = t`.
+Caused by warning in `cor()`:
+! the standard deviation is zero</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Regionname'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 3
+# Groups:   Regionname [8]
+   Regionname                 Type  correlation
+   &lt;fct&gt;                      &lt;fct&gt;       &lt;dbl&gt;
+ 1 Eastern Victoria           t           0.788
+ 2 Eastern Victoria           u           0.677
+ 3 Eastern Metropolitan       t           0.616
+ 4 Southern Metropolitan      u           0.599
+ 5 Western Metropolitan       u           0.550
+ 6 South-Eastern Metropolitan u           0.549
+ 7 Eastern Metropolitan       u           0.526
+ 8 Western Victoria           u           0.519
+ 9 Western Metropolitan       t           0.469
+10 Southern Metropolitan      h           0.467
+# ℹ 13 more rows</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="graphical-summaries-for-investigating-the-data" class="level1">
 <h1>Graphical Summaries for Investigating the Data</h1>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
-</section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Price, Distance) <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(Distance <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="fu">aes</span>(<span class="at">x =</span> Price, <span class="at">y =</span> Distance))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Scatter Plot of Distance from Central Business District versus Price'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prep_app_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;theme&gt; List of 144
+ $ line                            : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ lineend      : chr "butt"
+  ..@ linejoin     : chr "round"
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "black"
+  ..@ inherit.blank: logi TRUE
+ $ rect                            : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ text                            : &lt;ggplot2::element_text&gt;
+  ..@ family       : chr ""
+  ..@ face         : chr "plain"
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "black"
+  ..@ size         : num 11
+  ..@ hjust        : num 0.5
+  ..@ vjust        : num 0.5
+  ..@ angle        : num 0
+  ..@ lineheight   : num 0.9
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
+  ..@ debug        : logi FALSE
+  ..@ inherit.blank: logi TRUE
+ $ title                           : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ point                           : &lt;ggplot2::element_point&gt;
+  ..@ colour       : chr "black"
+  ..@ shape        : num 19
+  ..@ size         : num 1.5
+  ..@ fill         : chr "white"
+  ..@ stroke       : num 0.5
+  ..@ inherit.blank: logi TRUE
+ $ polygon                         : &lt;ggplot2::element_polygon&gt;
+  ..@ fill         : chr "white"
+  ..@ colour       : chr "black"
+  ..@ linewidth    : num 0.5
+  ..@ linetype     : num 1
+  ..@ linejoin     : chr "round"
+  ..@ inherit.blank: logi TRUE
+ $ geom                            : &lt;ggplot2::element_geom&gt;
+  ..@ ink        : chr "black"
+  ..@ paper      : chr "white"
+  ..@ accent     : chr "#3366FF"
+  ..@ linewidth  : num 0.5
+  ..@ borderwidth: num 0.5
+  ..@ linetype   : int 1
+  ..@ bordertype : int 1
+  ..@ family     : chr ""
+  ..@ fontsize   : num 3.87
+  ..@ pointsize  : num 1.5
+  ..@ pointshape : num 19
+  ..@ colour     : NULL
+  ..@ fill       : NULL
+ $ spacing                         : 'simpleUnit' num 5.5points
+  ..- attr(*, "unit")= int 8
+ $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
+ $ aspect.ratio                    : NULL
+ $ axis.title                      : NULL
+ $ axis.title.x                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.x.bottom             : NULL
+ $ axis.title.y                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num 90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.title.y.left               : NULL
+ $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : num -90
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text                       : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : chr "#4D4D4DFF"
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 1
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : NULL
+  ..@ vjust        : num 0
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.2 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.x.bottom              : NULL
+ $ axis.text.y                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 1
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.y.left                : NULL
+ $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.text.theta                 : NULL
+ $ axis.text.r                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0.5
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks                      : &lt;ggplot2::element_line&gt;
+  ..@ colour       : chr "#333333FF"
+  ..@ linewidth    : 'rel' num 0.5
+  ..@ linetype     : NULL
+  ..@ lineend      : NULL
+  ..@ linejoin     : NULL
+  ..@ arrow        : logi FALSE
+  ..@ arrow.fill   : chr "#333333FF"
+  ..@ inherit.blank: logi TRUE
+ $ axis.ticks.x                    : NULL
+ $ axis.ticks.x.top                : NULL
+ $ axis.ticks.x.bottom             : NULL
+ $ axis.ticks.y                    : NULL
+ $ axis.ticks.y.left               : NULL
+ $ axis.ticks.y.right              : NULL
+ $ axis.ticks.theta                : NULL
+ $ axis.ticks.r                    : NULL
+ $ axis.minor.ticks.x.top          : NULL
+ $ axis.minor.ticks.x.bottom       : NULL
+ $ axis.minor.ticks.y.left         : NULL
+ $ axis.minor.ticks.y.right        : NULL
+ $ axis.minor.ticks.theta          : NULL
+ $ axis.minor.ticks.r              : NULL
+ $ axis.ticks.length               : 'rel' num 0.5
+ $ axis.ticks.length.x             : NULL
+ $ axis.ticks.length.x.top         : NULL
+ $ axis.ticks.length.x.bottom      : NULL
+ $ axis.ticks.length.y             : NULL
+ $ axis.ticks.length.y.left        : NULL
+ $ axis.ticks.length.y.right       : NULL
+ $ axis.ticks.length.theta         : NULL
+ $ axis.ticks.length.r             : NULL
+ $ axis.minor.ticks.length         : 'rel' num 0.75
+ $ axis.minor.ticks.length.x       : NULL
+ $ axis.minor.ticks.length.x.top   : NULL
+ $ axis.minor.ticks.length.x.bottom: NULL
+ $ axis.minor.ticks.length.y       : NULL
+ $ axis.minor.ticks.length.y.left  : NULL
+ $ axis.minor.ticks.length.y.right : NULL
+ $ axis.minor.ticks.length.theta   : NULL
+ $ axis.minor.ticks.length.r       : NULL
+ $ axis.line                       : &lt;ggplot2::element_blank&gt;
+ $ axis.line.x                     : NULL
+ $ axis.line.x.top                 : NULL
+ $ axis.line.x.bottom              : NULL
+ $ axis.line.y                     : NULL
+ $ axis.line.y.left                : NULL
+ $ axis.line.y.right               : NULL
+ $ axis.line.theta                 : NULL
+ $ axis.line.r                     : NULL
+ $ legend.background               : &lt;ggplot2::element_rect&gt;
+  ..@ fill         : NULL
+  ..@ colour       : logi NA
+  ..@ linewidth    : NULL
+  ..@ linetype     : NULL
+  ..@ linejoin     : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.margin                   : NULL
+ $ legend.spacing                  : 'rel' num 2
+ $ legend.spacing.x                : NULL
+ $ legend.spacing.y                : NULL
+ $ legend.key                      : NULL
+ $ legend.key.size                 : 'simpleUnit' num 1.2lines
+  ..- attr(*, "unit")= int 3
+ $ legend.key.height               : NULL
+ $ legend.key.width                : NULL
+ $ legend.key.spacing              : NULL
+ $ legend.key.spacing.x            : NULL
+ $ legend.key.spacing.y            : NULL
+ $ legend.key.justification        : NULL
+ $ legend.frame                    : NULL
+ $ legend.ticks                    : NULL
+ $ legend.ticks.length             : 'rel' num 0.2
+ $ legend.axis.line                : NULL
+ $ legend.text                     : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : 'rel' num 0.8
+  ..@ hjust        : NULL
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.text.position            : NULL
+ $ legend.title                    : &lt;ggplot2::element_text&gt;
+  ..@ family       : NULL
+  ..@ face         : NULL
+  ..@ italic       : chr NA
+  ..@ fontweight   : num NA
+  ..@ fontwidth    : num NA
+  ..@ colour       : NULL
+  ..@ size         : NULL
+  ..@ hjust        : num 0
+  ..@ vjust        : NULL
+  ..@ angle        : NULL
+  ..@ lineheight   : NULL
+  ..@ margin       : NULL
+  ..@ debug        : NULL
+  ..@ inherit.blank: logi TRUE
+ $ legend.title.position           : NULL
+ $ legend.position                 : chr "right"
+ $ legend.position.inside          : NULL
+ $ legend.direction                : NULL
+ $ legend.byrow                    : NULL
+ $ legend.justification            : chr "center"
+ $ legend.justification.top        : NULL
+ $ legend.justification.bottom     : NULL
+ $ legend.justification.left       : NULL
+ $ legend.justification.right      : NULL
+ $ legend.justification.inside     : NULL
+  [list output truncated]
+ @ complete: logi TRUE
+ @ validate: logi TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Regionname, Method), <span class="fu">aes</span>(<span class="at">x =</span> Regionname, <span class="at">fill =</span> Method))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Bar Plot of Count of Houses Sold by Region over Method of Sale'</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prep_app_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Type, Propertycount, Method, Regionname), <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">y=</span>Propertycount,<span class="at">fill=</span>Method))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Facet of Boxplots of Property Count versus Type across Sale Method and Regions'</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Regionname) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prep_app_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="ot">&lt;-</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  melbourne_house_data <span class="sc">|&gt;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Full_Date =</span> <span class="fu">factor</span>(Full_Date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data, <span class="fu">aes</span>(Distance, Price, <span class="at">size =</span> Propertycount, <span class="at">colour =</span> Regionname)) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~Suburb) +</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here comes the gganimate specific bits</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {closest_state}'</span>, <span class="at">x =</span> <span class="st">'Distance from Central Business District'</span>, <span class="at">y =</span> <span class="st">'Price'</span>) <span class="sc">+</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_states</span>(Full_Date, <span class="at">transition_length =</span> <span class="dv">3</span>, <span class="at">state_length =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enter_fade</span>()<span class="sc">+</span><span class="fu">exit_fade</span>()</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  ease_aes('linear')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in lapply(row_vars$states, as.integer): NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in expand_panel(..., self = self): NAs introduced by coercion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 95 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 95 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 258 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 186 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 186 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 202 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 17 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 17 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 167 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 158 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 158 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 235 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 105 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 105 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 259 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 173 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 173 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 260 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 115 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 115 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 226 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 135 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 135 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 221 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 125 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 125 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 301 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 207 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 207 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 247 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 46 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 46 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 193 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 157 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 157 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 147 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 147 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 99 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 99 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 163 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 163 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 117 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 117 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 182 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 182 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 26 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 26 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 93 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 93 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 117 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 117 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 193 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 76 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 76 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 150 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 150 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 204 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 204 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 38 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 38 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 27 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 27 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 173 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 173 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 97 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 97 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 123 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 123 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 163 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 163 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 32 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 32 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 197 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 197 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 115 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 115 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 154 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 154 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 161 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 161 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 171 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 171 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 93 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 93 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 84 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 84 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 161 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 161 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 145 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 145 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 36 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 36 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 57 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 57 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 47 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 47 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 111 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 111 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 178 rows containing missing values or values outside the scale range
+(`geom_point()`).
+Removed 178 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 95 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="prep_app_files/figure-html/unnamed-chunk-14-1.gif" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 
 </main>
