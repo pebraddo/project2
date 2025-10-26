@@ -81,10 +81,23 @@ g + geom_point() +
 ```
 
 ```{r}
+g3 <- ggplot(melbourne_house_data |>
+               drop_na(Price, Type), aes(x=Price))
+g3+geom_density(alpha=0.5, aes(fill=Type)) + theme_dark() +ggtitle('Histogram of Frequency of Price for Each House Type')
+```
+
+```{r}
 g2 <- ggplot(melbourne_house_data |> drop_na(Regionname, Method), aes(x = Regionname, fill = Method))
 g2 + geom_bar() +
   ggtitle('Bar Plot of Count of Houses Sold by Region over Method of Sale') +
   theme_dark() + coord_flip()
+```
+
+```{r}
+g4 <- ggplot(melbourne_house_data |> drop_na(Type, Propertycount), aes(x = Type, y=Propertycount, fill=Type))
+g4 + geom_boxplot() +
+  ggtitle('Boxplots of Property Count versus Type') +
+  theme_dark()
 ```
 
 ```{r}
