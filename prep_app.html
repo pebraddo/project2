@@ -345,7 +345,8 @@ Caused by warning in `cor()`:
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Price, Distance) <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(Distance <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="fu">aes</span>(<span class="at">x =</span> Price, <span class="at">y =</span> Distance))</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Scatter Plot of Distance from Central Business District versus Price'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Scatter Plot of Distance from Central Business District versus Price'</span>)<span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -353,369 +354,12 @@ Caused by warning in `cor()`:
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;theme&gt; List of 144
- $ line                            : &lt;ggplot2::element_line&gt;
-  ..@ colour       : chr "black"
-  ..@ linewidth    : num 0.5
-  ..@ linetype     : num 1
-  ..@ lineend      : chr "butt"
-  ..@ linejoin     : chr "round"
-  ..@ arrow        : logi FALSE
-  ..@ arrow.fill   : chr "black"
-  ..@ inherit.blank: logi TRUE
- $ rect                            : &lt;ggplot2::element_rect&gt;
-  ..@ fill         : chr "white"
-  ..@ colour       : chr "black"
-  ..@ linewidth    : num 0.5
-  ..@ linetype     : num 1
-  ..@ linejoin     : chr "round"
-  ..@ inherit.blank: logi TRUE
- $ text                            : &lt;ggplot2::element_text&gt;
-  ..@ family       : chr ""
-  ..@ face         : chr "plain"
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : chr "black"
-  ..@ size         : num 11
-  ..@ hjust        : num 0.5
-  ..@ vjust        : num 0.5
-  ..@ angle        : num 0
-  ..@ lineheight   : num 0.9
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 0
-  ..@ debug        : logi FALSE
-  ..@ inherit.blank: logi TRUE
- $ title                           : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ point                           : &lt;ggplot2::element_point&gt;
-  ..@ colour       : chr "black"
-  ..@ shape        : num 19
-  ..@ size         : num 1.5
-  ..@ fill         : chr "white"
-  ..@ stroke       : num 0.5
-  ..@ inherit.blank: logi TRUE
- $ polygon                         : &lt;ggplot2::element_polygon&gt;
-  ..@ fill         : chr "white"
-  ..@ colour       : chr "black"
-  ..@ linewidth    : num 0.5
-  ..@ linetype     : num 1
-  ..@ linejoin     : chr "round"
-  ..@ inherit.blank: logi TRUE
- $ geom                            : &lt;ggplot2::element_geom&gt;
-  ..@ ink        : chr "black"
-  ..@ paper      : chr "white"
-  ..@ accent     : chr "#3366FF"
-  ..@ linewidth  : num 0.5
-  ..@ borderwidth: num 0.5
-  ..@ linetype   : int 1
-  ..@ bordertype : int 1
-  ..@ family     : chr ""
-  ..@ fontsize   : num 3.87
-  ..@ pointsize  : num 1.5
-  ..@ pointshape : num 19
-  ..@ colour     : NULL
-  ..@ fill       : NULL
- $ spacing                         : 'simpleUnit' num 5.5points
-  ..- attr(*, "unit")= int 8
- $ margins                         : &lt;ggplot2::margin&gt; num [1:4] 5.5 5.5 5.5 5.5
- $ aspect.ratio                    : NULL
- $ axis.title                      : NULL
- $ axis.title.x                    : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.75 0 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.title.x.top                : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 0
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.75 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.title.x.bottom             : NULL
- $ axis.title.y                    : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : num 90
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.75 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.title.y.left               : NULL
- $ axis.title.y.right              : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : num -90
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.75
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text                       : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : chr "#4D4D4DFF"
-  ..@ size         : 'rel' num 0.8
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.x                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 1
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 2.2 0 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.x.top                 : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : NULL
-  ..@ vjust        : num 0
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 2.2 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.x.bottom              : NULL
- $ axis.text.y                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : num 1
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 0
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.y.left                : NULL
- $ axis.text.y.right               : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : num 0
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 0 0 2.2
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.text.theta                 : NULL
- $ axis.text.r                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : num 0.5
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : &lt;ggplot2::margin&gt; num [1:4] 0 2.2 0 2.2
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ axis.ticks                      : &lt;ggplot2::element_line&gt;
-  ..@ colour       : chr "#333333FF"
-  ..@ linewidth    : 'rel' num 0.5
-  ..@ linetype     : NULL
-  ..@ lineend      : NULL
-  ..@ linejoin     : NULL
-  ..@ arrow        : logi FALSE
-  ..@ arrow.fill   : chr "#333333FF"
-  ..@ inherit.blank: logi TRUE
- $ axis.ticks.x                    : NULL
- $ axis.ticks.x.top                : NULL
- $ axis.ticks.x.bottom             : NULL
- $ axis.ticks.y                    : NULL
- $ axis.ticks.y.left               : NULL
- $ axis.ticks.y.right              : NULL
- $ axis.ticks.theta                : NULL
- $ axis.ticks.r                    : NULL
- $ axis.minor.ticks.x.top          : NULL
- $ axis.minor.ticks.x.bottom       : NULL
- $ axis.minor.ticks.y.left         : NULL
- $ axis.minor.ticks.y.right        : NULL
- $ axis.minor.ticks.theta          : NULL
- $ axis.minor.ticks.r              : NULL
- $ axis.ticks.length               : 'rel' num 0.5
- $ axis.ticks.length.x             : NULL
- $ axis.ticks.length.x.top         : NULL
- $ axis.ticks.length.x.bottom      : NULL
- $ axis.ticks.length.y             : NULL
- $ axis.ticks.length.y.left        : NULL
- $ axis.ticks.length.y.right       : NULL
- $ axis.ticks.length.theta         : NULL
- $ axis.ticks.length.r             : NULL
- $ axis.minor.ticks.length         : 'rel' num 0.75
- $ axis.minor.ticks.length.x       : NULL
- $ axis.minor.ticks.length.x.top   : NULL
- $ axis.minor.ticks.length.x.bottom: NULL
- $ axis.minor.ticks.length.y       : NULL
- $ axis.minor.ticks.length.y.left  : NULL
- $ axis.minor.ticks.length.y.right : NULL
- $ axis.minor.ticks.length.theta   : NULL
- $ axis.minor.ticks.length.r       : NULL
- $ axis.line                       : &lt;ggplot2::element_blank&gt;
- $ axis.line.x                     : NULL
- $ axis.line.x.top                 : NULL
- $ axis.line.x.bottom              : NULL
- $ axis.line.y                     : NULL
- $ axis.line.y.left                : NULL
- $ axis.line.y.right               : NULL
- $ axis.line.theta                 : NULL
- $ axis.line.r                     : NULL
- $ legend.background               : &lt;ggplot2::element_rect&gt;
-  ..@ fill         : NULL
-  ..@ colour       : logi NA
-  ..@ linewidth    : NULL
-  ..@ linetype     : NULL
-  ..@ linejoin     : NULL
-  ..@ inherit.blank: logi TRUE
- $ legend.margin                   : NULL
- $ legend.spacing                  : 'rel' num 2
- $ legend.spacing.x                : NULL
- $ legend.spacing.y                : NULL
- $ legend.key                      : NULL
- $ legend.key.size                 : 'simpleUnit' num 1.2lines
-  ..- attr(*, "unit")= int 3
- $ legend.key.height               : NULL
- $ legend.key.width                : NULL
- $ legend.key.spacing              : NULL
- $ legend.key.spacing.x            : NULL
- $ legend.key.spacing.y            : NULL
- $ legend.key.justification        : NULL
- $ legend.frame                    : NULL
- $ legend.ticks                    : NULL
- $ legend.ticks.length             : 'rel' num 0.2
- $ legend.axis.line                : NULL
- $ legend.text                     : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : 'rel' num 0.8
-  ..@ hjust        : NULL
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ legend.text.position            : NULL
- $ legend.title                    : &lt;ggplot2::element_text&gt;
-  ..@ family       : NULL
-  ..@ face         : NULL
-  ..@ italic       : chr NA
-  ..@ fontweight   : num NA
-  ..@ fontwidth    : num NA
-  ..@ colour       : NULL
-  ..@ size         : NULL
-  ..@ hjust        : num 0
-  ..@ vjust        : NULL
-  ..@ angle        : NULL
-  ..@ lineheight   : NULL
-  ..@ margin       : NULL
-  ..@ debug        : NULL
-  ..@ inherit.blank: logi TRUE
- $ legend.title.position           : NULL
- $ legend.position                 : chr "right"
- $ legend.position.inside          : NULL
- $ legend.direction                : NULL
- $ legend.byrow                    : NULL
- $ legend.justification            : chr "center"
- $ legend.justification.top        : NULL
- $ legend.justification.bottom     : NULL
- $ legend.justification.left       : NULL
- $ legend.justification.right      : NULL
- $ legend.justification.inside     : NULL
-  [list output truncated]
- @ complete: logi TRUE
- @ validate: logi TRUE</code></pre>
-</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Regionname, Method), <span class="fu">aes</span>(<span class="at">x =</span> Regionname, <span class="at">fill =</span> Method))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Bar Plot of Count of Houses Sold by Region over Method of Sale'</span>) <span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Regionname, Method), <span class="fu">aes</span>(<span class="at">x =</span> Regionname, <span class="at">fill =</span> Method))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Bar Plot of Count of Houses Sold by Region over Method of Sale'</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -725,11 +369,11 @@ Caused by warning in `cor()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Type, Propertycount, Method, Regionname), <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">y=</span>Propertycount,<span class="at">fill=</span>Method))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Facet of Boxplots of Property Count versus Type across Sale Method and Regions'</span>) <span class="sc">+</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Regionname) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data <span class="sc">|&gt;</span> <span class="fu">drop_na</span>(Type, Propertycount, Method, Regionname), <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">y=</span>Propertycount,<span class="at">fill=</span>Method))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Facet of Boxplots of Property Count versus Type across Sale Method and Regions'</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Regionname) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -739,349 +383,730 @@ Caused by warning in `cor()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="ot">&lt;-</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  melbourne_house_data <span class="sc">|&gt;</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Full_Date =</span> <span class="fu">factor</span>(Full_Date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="ot">&lt;-</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  melbourne_house_data <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Distance<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Full_Date =</span> <span class="fu">factor</span>(Full_Date))</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>melbourne_house_data <span class="ot">&lt;-</span> melbourne_house_data <span class="sc">|&gt;</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(Suburb, Full_Date, <span class="at">fill=</span><span class="fu">list</span>(<span class="at">Distance=</span><span class="cn">NA</span>, <span class="at">Price=</span><span class="cn">NA</span>, <span class="at">Propertycount=</span><span class="cn">NA</span>, <span class="at">Regionname=</span><span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data, <span class="fu">aes</span>(Distance, Price, <span class="at">size =</span> Propertycount, <span class="at">colour =</span> Regionname)) <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~Suburb) +</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here comes the gganimate specific bits</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {closest_state}'</span>, <span class="at">x =</span> <span class="st">'Distance from Central Business District'</span>, <span class="at">y =</span> <span class="st">'Price'</span>) <span class="sc">+</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_states</span>(Full_Date, <span class="at">transition_length =</span> <span class="dv">3</span>, <span class="at">state_length =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enter_fade</span>()<span class="sc">+</span><span class="fu">exit_fade</span>()</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  ease_aes('linear')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(melbourne_house_data, <span class="fu">aes</span>(Distance, Price, <span class="at">size =</span> Propertycount, <span class="at">colour =</span> Regionname)) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_grey</span>() <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Suburb) <span class="sc">+</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Here comes the gganimate specific bits</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {closest_state}'</span>, <span class="at">x =</span> <span class="st">'Distance from Central Business District'</span>, <span class="at">y =</span> <span class="st">'Price'</span>) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_states</span>(Full_Date, <span class="at">transition_length =</span> <span class="dv">3</span>, <span class="at">state_length =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enter_fade</span>()<span class="sc">+</span><span class="fu">exit_fade</span>()</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co">#  ease_aes('linear')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in lapply(row_vars$states, as.integer): NAs introduced by coercion</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in expand_panel(..., self = self): NAs introduced by coercion</code></pre>
+<pre><code>Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion
+Warning in expand_panel(..., self = self): NAs introduced by coercion</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 95 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 281 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 95 rows containing missing values or values outside the scale range
+Removed 281 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 258 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 486 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 186 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 349 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 186 rows containing missing values or values outside the scale range
+Removed 349 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 202 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 514 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 17 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 315 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 17 rows containing missing values or values outside the scale range
+Removed 315 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 167 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 487 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 158 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 327 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 158 rows containing missing values or values outside the scale range
+Removed 327 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 235 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 476 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 105 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 305 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 105 rows containing missing values or values outside the scale range
+Removed 305 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 259 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 489 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 173 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 347 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 173 rows containing missing values or values outside the scale range
+Removed 347 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 260 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 476 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 115 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 291 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 115 rows containing missing values or values outside the scale range
+Removed 291 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 226 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 450 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 135 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 300 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 135 rows containing missing values or values outside the scale range
+Removed 300 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 221 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 459 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 125 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 308 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 125 rows containing missing values or values outside the scale range
+Removed 308 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 301 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 527 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 207 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 347 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 207 rows containing missing values or values outside the scale range
+Removed 347 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 247 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 528 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 46 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 321 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 46 rows containing missing values or values outside the scale range
+Removed 321 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 193 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 484 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 157 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 322 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 157 rows containing missing values or values outside the scale range
+Removed 322 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 147 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 300 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 147 rows containing missing values or values outside the scale range
+Removed 300 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 99 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 264 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 99 rows containing missing values or values outside the scale range
+Removed 264 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 163 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 323 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 163 rows containing missing values or values outside the scale range
+Removed 323 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 117 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 290 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 117 rows containing missing values or values outside the scale range
+Removed 290 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 182 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 340 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 182 rows containing missing values or values outside the scale range
+Removed 340 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 26 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 338 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 26 rows containing missing values or values outside the scale range
+Removed 338 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 93 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 277 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 93 rows containing missing values or values outside the scale range
+Removed 277 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 117 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 275 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 117 rows containing missing values or values outside the scale range
+Removed 275 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 193 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 336 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 76 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 268 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 76 rows containing missing values or values outside the scale range
+Removed 268 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 150 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 314 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 150 rows containing missing values or values outside the scale range
+Removed 314 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 204 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 347 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 204 rows containing missing values or values outside the scale range
+Removed 347 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 38 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 261 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 38 rows containing missing values or values outside the scale range
+Removed 261 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 27 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 307 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 27 rows containing missing values or values outside the scale range
+Removed 307 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 173 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 324 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 173 rows containing missing values or values outside the scale range
+Removed 324 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 97 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 268 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 97 rows containing missing values or values outside the scale range
+Removed 268 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 123 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 322 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 123 rows containing missing values or values outside the scale range
+Removed 322 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 163 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 325 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 163 rows containing missing values or values outside the scale range
+Removed 325 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 32 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 335 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 32 rows containing missing values or values outside the scale range
+Removed 335 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 197 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 353 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 197 rows containing missing values or values outside the scale range
+Removed 353 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 115 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 324 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 115 rows containing missing values or values outside the scale range
+Removed 324 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 154 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 320 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 154 rows containing missing values or values outside the scale range
+Removed 320 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 161 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 310 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 161 rows containing missing values or values outside the scale range
+Removed 310 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 171 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 349 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 171 rows containing missing values or values outside the scale range
+Removed 349 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 93 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 288 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 93 rows containing missing values or values outside the scale range
+Removed 288 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 84 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 312 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 84 rows containing missing values or values outside the scale range
+Removed 312 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 161 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 310 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 161 rows containing missing values or values outside the scale range
+Removed 310 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 145 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 335 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 145 rows containing missing values or values outside the scale range
+Removed 335 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 36 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 329 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 36 rows containing missing values or values outside the scale range
+Removed 329 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 57 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 263 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 57 rows containing missing values or values outside the scale range
+Removed 263 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 47 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 326 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 47 rows containing missing values or values outside the scale range
+Removed 326 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 111 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 307 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 111 rows containing missing values or values outside the scale range
+Removed 307 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 178 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 354 rows containing missing values or values outside the scale range
 (`geom_point()`).
-Removed 178 rows containing missing values or values outside the scale range
+Removed 354 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 95 rows containing missing values or values outside the scale range
+<pre><code>Warning: Removed 281 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">

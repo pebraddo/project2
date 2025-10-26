@@ -102,7 +102,9 @@ melbourne_house_data <-
   mutate(Full_Date = factor(Full_Date))
 
 melbourne_house_data <- melbourne_house_data |>
-  complete(Suburb, Full_Date, fill=list(Distance=NA, Price=NA, Propertycount=NA, Regionname=NA))
+  complete(Suburb, Full_Date, fill=list(Distance=NA, Price=NA, Propertycount=NA, Regionname=NA)) |>
+  filter(Method %in% c('PI', 'S', 'SA', 'SP', 'VB')
+  )
 ```
 
 ```{r}
@@ -111,15 +113,16 @@ library(gapminder)
 library(gganimate)
 
 p <- ggplot(melbourne_house_data, aes(Distance, Price, size = Propertycount, colour = Regionname)) +
-  geom_point(alpha = 0.7, show.legend = FALSE) +
-  scale_colour_grey() +
+  geom_point(alpha = 0.7, show.legend = TRUE) +
+
+  scale_colour_discrete() +
   scale_size(range = c(2, 12)) +
   scale_x_log10() +
-  facet_wrap(~Suburb) +
+  facet_wrap(~Method) +
   # Here comes the gganimate specific bits
   labs(title = 'Year: {closest_state}', x = 'Distance from Central Business District', y = 'Price') +
-  transition_states(Full_Date, transition_length = 3, state_length = 1) +
-  enter_fade()+exit_fade()
+  transition_states(Full_Date, transition_length = 3, state_length = 3) +
+  enter_fade()+exit_fade() + ggtitle('Price versus Distancce from CBD over Time by Method of Sale')
 #  ease_aes('linear')
 
 ```
