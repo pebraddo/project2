@@ -1,10 +1,15 @@
+#load necessary libraries
 library(bslib)
 library(ggplot2)
 library(shiny)
+library(shinyWidgets)
+library(bs4Dash)
 library(shinydashboard)
 library(tidyverse)
 library(DT)
+#read in data from .csv in project 2 repo
 tib <- read_csv('../MELBOURNE_HOUSE_PRICES_LESS.csv') |>
+  #get date data in the correct format
   mutate(Full_Date = as.Date(Date, format = "%m/%d/%Y"))
 
 # Define UI for application
@@ -12,12 +17,13 @@ ui <- dashboardPage(
   dashboardHeader(title='Melbourne Housing Application'),
   dashboardSidebar(
     sidebarMenu(
+      #define tabs
       menuItem('About', tabName = 'about_tab', icon=icon('archive')),
       menuItem('Data Download', tabName='download_dat', icon=icon('download')),
       menuItem('Data Exploration', tabName = 'explore_tab', icon=icon('chart-bar'))
       )),
 
-
+#elements within the tabs
   dashboardBody(
     tabItems(
       tabItem(tabName = 'about_tab',
@@ -61,9 +67,11 @@ ui <- dashboardPage(
                 
                 
               mainPanel(plotOutput(outputId = 'scatterplot'),
-                        tableOutput('var_type')))
-    )
-  ))
+                        card(
+                             card_header('Contingency Tables'),
+                             div(style = 'background-color:white; padding:10px; border-radius:8px;',
+                                 tableOutput('one_way'),
+                                 tableOutput('two_way'))))))))
 
 
 
@@ -86,7 +94,7 @@ server <- function(input, output) {
                 max=max(var, na.rm = TRUE),
                 value=c(min(var, na.rm = TRUE), max(var, na.rm = TRUE)))
   })
-
+#filter the data to react elements to it
   filtered_data <-eventReactive(input$plot_it, {
     data <- tib
     if (length(input$suburb) >0 ){
@@ -102,11 +110,43 @@ server <- function(input, output) {
              between(.data[[input$num_var2]], input$range2[1], input$range2[2]))
     data
   })
-  var_type <- eventReactive(output$cat_or_num, {
-    melbourne_house_data |>
-      group_by(input$num_var1) |>
-      summarize(count = n())
-  })
+
+  output$one_way <- renderTable({
+    data <- filtered_data()
+    req(nrow(data)>0)
+    if(input$cat_or_num =='Numerical') {
+      data |>
+        group_by(Regionname, Type) |>
+        drop_na(Regionname, Type) |>
+        summarise(
+          mean_price = mean(Price, na.rm = TRUE), 
+          med_price = median(Price, na.rm = TRUE),
+          mean_rooms = mean(Rooms, na.rm = TRUE), 
+          med_rooms = median(Rooms, na.rm = TRUE))
+          } else {
+      data |>
+        group_by(Regionname) |>
+        summarise(count=n())
+    }})
+  output$two_way <- renderTable({
+    data <- filtered_data()
+    req(nrow(data)>0)
+    if(input$cat_or_num =='Numerical') {
+      data |>
+        group_by(Suburb, Type) |>
+        drop_na(Suburb, Type) |>
+        summarise(
+          mean_price = mean(Price, na.rm = TRUE), 
+          med_price = median(Price, na.rm = TRUE),
+          mean_rooms = mean(Rooms, na.rm = TRUE), 
+          med_rooms = median(Rooms, na.rm = TRUE))
+    } else {
+      data |>
+        group_by(Regionname, Type) |>
+        summarise(Count=n())|>
+        pivot_wider(names_from = Type, values_from = Count)
+    }})
+  
   output$scatterplot <- renderPlot({
     req(filtered_data())
     ggplot(filtered_data(), aes_string(x=input$num_var2, 
