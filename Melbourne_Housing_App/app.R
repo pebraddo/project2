@@ -7,6 +7,8 @@ library(bs4Dash)
 library(shinydashboard)
 library(tidyverse)
 library(DT)
+library(gapminder)
+library(gganimate)
 #read in data from .csv in project 2 repo
 tib <- read_csv('../MELBOURNE_HOUSE_PRICES_LESS.csv') |>
   #get date data in the correct format
@@ -66,12 +68,24 @@ ui <- dashboardPage(
                 
                 
                 
-              mainPanel(plotOutput(outputId = 'scatterplot'),
-                        card(
-                             card_header('Contingency Tables'),
+              mainPanel(card(card_header('Scatterplot of Subsetted Data'),
+                             plotOutput(outputId = 'scatterplot'),
+                        card(card_header('Summaries'),
                              div(style = 'background-color:white; padding:10px; border-radius:8px;',
                                  tableOutput('one_way'),
-                                 tableOutput('two_way'))))))))
+                                 tableOutput('two_way'))),
+                        card(card_header('Measures of Association between two numeric variables selected using pairwise complete observations'),
+                             div(style='background-color:white; padding:10px; border-radius:8px;',
+                                 tableOutput('measures_of_association'))),
+                        card(card_header('Graphical Summaries for Investigating the Data'),
+                            plotOutput(outputId = 'scat_dist_price'),
+                            plotOutput(outputId = 'hist_price_type'),
+                            plotOutput(outputId = 'bar_method_region'), #explain the methods in the about tab
+                            plotOutput(outputId = 'box_prop_type'),
+                            plotOutput(outputId = 'facet_box_prop_type'),
+                            imageOutput('anim_facet')
+                            )
+                        ))))))
 
 
 
@@ -108,7 +122,12 @@ server <- function(input, output) {
     data <- data |>
       filter(between(.data[[input$num_var1]], input$range1[1], input$range1[2]),
              between(.data[[input$num_var2]], input$range2[1], input$range2[2]))
-    data
+    data <- data |> 
+      filter(Distance>0) |>
+      mutate(Full_Date = factor(Full_Date))|>
+      complete(Suburb, Full_Date, fill=list(Distance=NA, Price=NA, Propertycount=NA, Regionname=NA)) |>
+      filter(Method %in% c('PI', 'S', 'SA', 'SP', 'VB'))
+    
   })
 
   output$one_way <- renderTable({
@@ -133,13 +152,10 @@ server <- function(input, output) {
     req(nrow(data)>0)
     if(input$cat_or_num =='Numerical') {
       data |>
-        group_by(Suburb, Type) |>
-        drop_na(Suburb, Type) |>
-        summarise(
-          mean_price = mean(Price, na.rm = TRUE), 
-          med_price = median(Price, na.rm = TRUE),
-          mean_rooms = mean(Rooms, na.rm = TRUE), 
-          med_rooms = median(Rooms, na.rm = TRUE))
+        group_by(Region = as.factor(Regionname)) |>
+        summarize(mean_price = mean(Price, na.rm = TRUE), 
+                  med_price = median(Price, na.rm = TRUE),
+                  sd_price = sd(Price, na.rm = TRUE))
     } else {
       data |>
         group_by(Regionname, Type) |>
@@ -152,9 +168,10 @@ server <- function(input, output) {
     ggplot(filtered_data(), aes_string(x=input$num_var2, 
                                    y=input$num_var1, color = 'Type')) +
       geom_point(alpha=0.6) +
-      theme_dark() +
+      theme_minimal() +
       labs(title = 'Your Filtered Housing Data')
     })
+  
   output$data_table <- renderDT({
     filtered_data()
   })
@@ -164,7 +181,77 @@ server <- function(input, output) {
       write_csv(filtered_data(),file)
     }
   )
+  output$measures_of_association <- renderTable({
+    data <- filtered_data()
+    req(nrow(data)>0)
+    tibble(correlation = cor(data[input$num_var1], data[input$num_var2], use = 'pairwise.complete.obs'))
+  }
+  )
+  
+  output$scat_dist_price <- renderPlot({
+    req(filtered_data())
+    ggplot(filtered_data(), aes(x = Price, y = Distance)) + 
+      geom_point(alpha=0.6) +
+      ggtitle('Scatter Plot of Distance from Central Business District versus Price')+
+      theme_minimal()
+  })
+  
+  output$hist_price_type <- renderPlot({
+    req(filtered_data())
+    ggplot(filtered_data(), aes(x=Price)) +
+      geom_density(alpha=0.5, aes(fill=Type)) +
+      theme_minimal() +
+      ggtitle('Histogram of Frequency of Price for Each House Type')
+  })
+  
+  output$bar_method_region <- renderPlot({
+    req(filtered_data())
+    ggplot(filtered_data() |> drop_na(Regionname, Method), aes(x = Regionname, fill = Method))+
+    geom_bar() +
+    ggtitle('Bar Plot of Count of Houses Sold by Region over Method of Sale') +
+    theme_minimal() + coord_flip()
+  })
+  
+  output$box_prop_type <- renderPlot({
+    req(filtered_data())
+    ggplot(filtered_data()|> drop_na(Type, Propertycount), aes(x = Type, y=Propertycount, fill=Type)) +
+    geom_boxplot() +
+    ggtitle('Boxplots of Property Count versus Type') +
+    theme_minimal()
+  })
+  
+  output$facet_box_prop_type <-renderPlot({
+    req(filtered_data())
+    ggplot(filtered_data()|> drop_na(Type, Propertycount, Method, Regionname), aes(x = Type, y=Propertycount,fill=Method))+
+      geom_boxplot() +
+      ggtitle('Facet of Boxplots of Property Count versus Type across Sale Method and Regions') +
+      facet_wrap(~ Regionname) +
+      theme_minimal()
+  })
+  output$anim_facet <- renderImage({
+
+    req(filtered_data())
+    p <- ggplot(filtered_data(), aes(Distance, Price, size = Propertycount, colour = Regionname)) +
+      geom_point(alpha = 0.7, show.legend = TRUE) +
+      scale_colour_discrete() +
+      scale_size(range = c(2, 12)) +
+      scale_x_log10() +
+      facet_wrap(~Method) +
+    # Here comes the gganimate specific bits
+      labs(title = 'Year: {closest_state}, Price versus Distancce from CBD over Time by Method of Sale', x = 'Distance from Central Business District', y = 'Price') +
+      transition_states(Full_Date, transition_length = 3, state_length = 3) +
+      enter_fade()+exit_fade()
     
+    temp_gif_file <- tempfile(fileext = '.gif')
+    anim_save(temp_gif_file, animation = animate(p, fps=10, width=800, height=600))
+    
+    list(src=temp_gif_file,
+         contentType='image/gif',
+         width='100%',
+         height='auto',
+         alt='Animated Facet Plot')
+  
+  }, deleteFile=TRUE)
 }
 
 # Run the application 
