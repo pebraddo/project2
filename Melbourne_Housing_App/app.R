@@ -9,6 +9,7 @@ library(tidyverse)
 library(DT)
 library(gapminder)
 library(gganimate)
+library(gifski)
 #read in data from .csv in project 2 repo
 tib <- read_csv('../MELBOURNE_HOUSE_PRICES_LESS.csv') |>
   #get date data in the correct format
@@ -84,7 +85,10 @@ ui <- dashboardPage(
                             plotOutput(outputId = 'box_prop_type'),
                             plotOutput(outputId = 'facet_box_prop_type'),
                             imageOutput('anim_facet')
-                            )
+                            ),
+                        tabBox(id='plot_tabs',
+                               tabPanel(title='Scatterplot',
+                                        plotOutput(outputId = 'scat_dist_price')))
                         ))))))
 
 
@@ -124,8 +128,8 @@ server <- function(input, output) {
              between(.data[[input$num_var2]], input$range2[1], input$range2[2]))
     data <- data |> 
       filter(Distance>0) |>
-      mutate(Full_Date = factor(Full_Date))|>
-      complete(Suburb, Full_Date, fill=list(Distance=NA, Price=NA, Propertycount=NA, Regionname=NA)) |>
+      mutate(Full_Date = as.Date(Full_Date),
+             Method= factor(Method))|>
       filter(Method %in% c('PI', 'S', 'SA', 'SP', 'VB'))
     
   })
@@ -243,7 +247,7 @@ server <- function(input, output) {
       enter_fade()+exit_fade()
     
     temp_gif_file <- tempfile(fileext = '.gif')
-    anim_save(temp_gif_file, animation = animate(p, fps=10, width=800, height=600))
+    anim_save(temp_gif_file, animation = animate(p,fps=10, width=800, height=600, renderer=gifski_renderer()))
     
     list(src=temp_gif_file,
          contentType='image/gif',
