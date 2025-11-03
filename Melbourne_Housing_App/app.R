@@ -11,6 +11,7 @@ library(gapminder)
 library(gganimate)
 library(gifski)
 library(shinycssloaders)
+
 #read in data from .csv in project 2 repo
 tib <- read_csv('../MELBOURNE_HOUSE_PRICES_LESS.csv') |>
   #get date data in the correct format
@@ -33,36 +34,49 @@ ui <- dashboardPage(
       tabItem(tabName = 'about_tab',
               titlePanel('About the Data'),
               mainPanel(card(
-                card_header(h3('About the Melbourne Housing Data')),
-                card_body(p("Within this application, you will discover methods of investigating the Melbourne Housing Data.
-                             This data comes from https://www.kaggle.com/datasets/anthonypino/melbourne-housing-market and explores
+                #about section blurb
+                
+                card_body(p(markdown("Within this application, you will discover methods of investigating the *Melbourne Housing Data*.
+                             This data comes from [Kaggle](https://www.kaggle.com/datasets/anthonypino/melbourne-housing-market) and explores
                              the housing bubble of Melbourne, including attributes of
                              
-                             - Suburb
-                             - Address
-                             - Rooms (the number of rooms)
-                             - Type (housing type: H (House), U (Unit), T (Townhouse)
-                             - Price
-                             - Method (method of sale: S - property sold; SP - property sold prior; PI - property passed in; PN - sold prior not disclosed; 
-                             SN - sold not disclosed; NB - no bid; VB - vendor bid; W - withdrawn prior to auction; SA - sold after auction; SS - sold after auction price not disclosed; 
-                             N/A - price or highest bid not available)
-                             - SellerG (seller's name)
-                             - Date (date sold)
-                             - Postcode (Zipcode)
-                             - Regionname
+                             * Suburb
+                             * Address
+                             * Rooms (the number of rooms)
+                             * Type (housing type) 
+                                  + H (House)
+                                  + U (Unit)
+                                  + T (Townhouse)
+                             * Price
+                             * Method (method of sale)
+                                  + S - property sold
+                                  + SP - property sold prior
+                                  + PI - property passed in
+                                  + VB - vendor bid
+                                  + SA - sold after auction
+                             * SellerG (seller's name)
+                             * Date (date sold)
+                             * Postcode (Zipcode)
+                             * Regionname
                              
-                             On the left side of this application, you can find three tabs (About, Data Download, and Data Exploration).  This is the About tab.  Within the Data Download tab, you can download a .csv of filtered data from the Data Exploration tab.
-                             Within the Data Exploration tab, you will find options for subsetting the housing data by numerical variables.  Below this, you can indicate whether you want to show numeric or categorical summaries of the subsetted data.  
-                             Finally, you can choose a main variable to plot across in the following graphs, which are inside named tabs!
+                             On the left side of this application, you can find three tabs (About, Data Download, and Data Exploration).  
+                             
+                             You are currently viewing the About tab.  
+                             
+                             Within the Data Download tab, you can download a .csv of filtered data from the Data Exploration tab.
+                             
+                             Within the Data Exploration tab, you will find options for subsetting the housing data by numerical variables.  Below this, you can indicate whether you want to show numeric or categorical summaries of the subsetted data. Finally, you can choose a main variable to plot across in the following graphs, which are inside named tabs!
                              "
-                          )),
+                          ))),
                           card_image('../Melbourne_pic.jpg')))
               ),
+      #data download of subsetted data
       tabItem(tabName = 'download_dat',
               titlePanel('Data Download'),
               DTOutput('data_table'),
               downloadButton('download_filtered_data', 'Download Filtered Data Here')
               ),
+      #exploration of prep_app shenanigans
       tabItem(tabName = 'explore_tab',
               titlePanel('Data Exploration'),
               card(layout_sidebar(sidebar=sidebar(
@@ -95,23 +109,16 @@ ui <- dashboardPage(
                 
                 
                 
-              mainPanel(card(card_header(h2('Scatterplot of Subsetted Data')),
-                             plotOutput(outputId = 'scatterplot'),
+              mainPanel(card(
+                             card_header(h2('Scatterplot of Subsetted Data')),
+                             plotOutput(outputId = 'scatterplot'))),
                         card(card_header(h2(textOutput('summary_title'))),
                              div(style = 'background-color:white; padding:10px; border-radius:8px;',
                                  tableOutput('one_way'),
-                                 tableOutput('two_way')))),
-                        card(card_header(h2('Measures of Association between two numeric variables selected using pairwise complete observations')),
+                                 tableOutput('two_way'))),
+                        card( card_header(h2('Measures of Association between two numeric variables selected using pairwise complete observations')),
                              div(style='background-color:white; padding:10px; border-radius:8px;',
                                  tableOutput('measures_of_association'))),
-                        #card(card_header('Graphical Summaries for Investigating the Data'),
-                            #plotOutput(outputId = 'scat_dist_price'),
-                            #plotOutput(outputId = 'hist_price_type'),
-                            #plotOutput(outputId = 'bar_method_region'), #explain the methods in the about tab
-                            #plotOutput(outputId = 'box_prop_type'),
-                            #plotOutput(outputId = 'facet_box_prop_type'),
-                            #imageOutput('anim_facet')
-                            #),
                         
                         card(card_header(h2('Graphical Summaries for Investigating the Data')),
                              selectInput('var_across', 
@@ -121,7 +128,7 @@ ui <- dashboardPage(
                                          multiple = FALSE),
                           tabBox(id='plot_tabs',
                                
-                               width = 10,
+                              
                                
               
                                tabPanel(title='Scatterplot',
@@ -136,12 +143,14 @@ ui <- dashboardPage(
                                tabPanel(title='Animation Plot',
                                         withSpinner(
                                           imageOutput('anim_facet')))
-                        ))))))))
+                        ))
+                        
+                        )))))
 
 
 
 
-
+#make those things happen
 server <- function(input, output) {
   output$range1 <- renderUI({
     req(input$num_var1)
