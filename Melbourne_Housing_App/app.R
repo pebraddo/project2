@@ -13,7 +13,7 @@ library(gifski)
 library(shinycssloaders)
 
 #read in data from .csv in project 2 repo
-tib <- read_csv('../MELBOURNE_HOUSE_PRICES_LESS.csv') |>
+tib <- read_csv('MELBOURNE_HOUSE_PRICES_LESS.csv') |>
   #get date data in the correct format
   mutate(Full_Date = as.Date(Date, format = "%m/%d/%Y"))
 
@@ -68,7 +68,7 @@ ui <- dashboardPage(
                              Within the Data Exploration tab, you will find options for subsetting the housing data by numerical variables.  Below this, you can indicate whether you want to show numeric or categorical summaries of the subsetted data. Finally, you can choose a main variable to plot across in the following graphs, which are inside named tabs!
                              "
                           ))),
-                          card_image('../Melbourne_pic.jpg')))
+                          card_image('Melbourne_pic.jpg')))
               ),
       #data download of subsetted data
       tabItem(tabName = 'download_dat',
