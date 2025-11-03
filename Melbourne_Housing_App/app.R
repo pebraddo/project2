@@ -10,6 +10,7 @@ library(DT)
 library(gapminder)
 library(gganimate)
 library(gifski)
+library(shinycssloaders)
 #read in data from .csv in project 2 repo
 tib <- read_csv('../MELBOURNE_HOUSE_PRICES_LESS.csv') |>
   #get date data in the correct format
@@ -27,10 +28,35 @@ ui <- dashboardPage(
       )),
 
 #elements within the tabs
-  dashboardBody(
+  dashboardBody(fluidRow(
     tabItems(
       tabItem(tabName = 'about_tab',
-              titlePanel('About the Data')
+              titlePanel('About the Data'),
+              mainPanel(card(
+                card_header(h3('About the Melbourne Housing Data')),
+                card_body(p("Within this application, you will discover methods of investigating the Melbourne Housing Data.
+                             This data comes from https://www.kaggle.com/datasets/anthonypino/melbourne-housing-market and explores
+                             the housing bubble of Melbourne, including attributes of
+                             
+                             - Suburb
+                             - Address
+                             - Rooms (the number of rooms)
+                             - Type (housing type: H (House), U (Unit), T (Townhouse)
+                             - Price
+                             - Method (method of sale: S - property sold; SP - property sold prior; PI - property passed in; PN - sold prior not disclosed; 
+                             SN - sold not disclosed; NB - no bid; VB - vendor bid; W - withdrawn prior to auction; SA - sold after auction; SS - sold after auction price not disclosed; 
+                             N/A - price or highest bid not available)
+                             - SellerG (seller's name)
+                             - Date (date sold)
+                             - Postcode (Zipcode)
+                             - Regionname
+                             
+                             On the left side of this application, you can find three tabs (About, Data Download, and Data Exploration).  This is the About tab.  Within the Data Download tab, you can download a .csv of filtered data from the Data Exploration tab.
+                             Within the Data Exploration tab, you will find options for subsetting the housing data by numerical variables.  Below this, you can indicate whether you want to show numeric or categorical summaries of the subsetted data.  
+                             Finally, you can choose a main variable to plot across in the following graphs, which are inside named tabs!
+                             "
+                          )),
+                          card_image('../Melbourne_pic.jpg')))
               ),
       tabItem(tabName = 'download_dat',
               titlePanel('Data Download'),
@@ -69,27 +95,48 @@ ui <- dashboardPage(
                 
                 
                 
-              mainPanel(card(card_header('Scatterplot of Subsetted Data'),
+              mainPanel(card(card_header(h2('Scatterplot of Subsetted Data')),
                              plotOutput(outputId = 'scatterplot'),
-                        card(card_header('Summaries'),
+                        card(card_header(h2(textOutput('summary_title'))),
                              div(style = 'background-color:white; padding:10px; border-radius:8px;',
                                  tableOutput('one_way'),
-                                 tableOutput('two_way'))),
-                        card(card_header('Measures of Association between two numeric variables selected using pairwise complete observations'),
+                                 tableOutput('two_way')))),
+                        card(card_header(h2('Measures of Association between two numeric variables selected using pairwise complete observations')),
                              div(style='background-color:white; padding:10px; border-radius:8px;',
                                  tableOutput('measures_of_association'))),
-                        card(card_header('Graphical Summaries for Investigating the Data'),
-                            plotOutput(outputId = 'scat_dist_price'),
-                            plotOutput(outputId = 'hist_price_type'),
-                            plotOutput(outputId = 'bar_method_region'), #explain the methods in the about tab
-                            plotOutput(outputId = 'box_prop_type'),
-                            plotOutput(outputId = 'facet_box_prop_type'),
-                            imageOutput('anim_facet')
-                            ),
-                        tabBox(id='plot_tabs',
+                        #card(card_header('Graphical Summaries for Investigating the Data'),
+                            #plotOutput(outputId = 'scat_dist_price'),
+                            #plotOutput(outputId = 'hist_price_type'),
+                            #plotOutput(outputId = 'bar_method_region'), #explain the methods in the about tab
+                            #plotOutput(outputId = 'box_prop_type'),
+                            #plotOutput(outputId = 'facet_box_prop_type'),
+                            #imageOutput('anim_facet')
+                            #),
+                        
+                        card(card_header(h2('Graphical Summaries for Investigating the Data')),
+                             selectInput('var_across', 
+                                         label='Select the main variable you would like to Summarize Across',
+                                         choices = c('Method', 'Regionname', 'Suburb', 'Postcode', 'SellerG',
+                                                     'CouncilArea', 'Type'),
+                                         multiple = FALSE),
+                          tabBox(id='plot_tabs',
+                               
+                               width = 10,
+                               
+              
                                tabPanel(title='Scatterplot',
-                                        plotOutput(outputId = 'scat_dist_price')))
-                        ))))))
+                                        withSpinner(plotOutput(outputId = 'scat_dist_price'))),
+                               tabPanel(title='Histogram',
+                                        withSpinner(plotOutput(outputId = 'hist_price_type'))),
+                               tabPanel(title='Bar Plot',
+                                        withSpinner(plotOutput(outputId = 'bar_method_region'))),
+                               tabPanel(title='Box Plots', 
+                                        withSpinner(plotOutput(outputId = 'box_prop_type')),
+                                        withSpinner(plotOutput(outputId = 'facet_box_prop_type'))),
+                               tabPanel(title='Animation Plot',
+                                        withSpinner(
+                                          imageOutput('anim_facet')))
+                        ))))))))
 
 
 
@@ -133,6 +180,10 @@ server <- function(input, output) {
       filter(Method %in% c('PI', 'S', 'SA', 'SP', 'VB'))
     
   })
+  
+  output$summary_title <-renderText({
+    paste(input$cat_or_num, 'Summaries')
+  })
 
   output$one_way <- renderTable({
     data <- filtered_data()
@@ -170,7 +221,7 @@ server <- function(input, output) {
   output$scatterplot <- renderPlot({
     req(filtered_data())
     ggplot(filtered_data(), aes_string(x=input$num_var2, 
-                                   y=input$num_var1, color = 'Type')) +
+                                   y=input$num_var1)) +
       geom_point(alpha=0.6) +
       theme_minimal() +
       labs(title = 'Your Filtered Housing Data')
@@ -194,45 +245,57 @@ server <- function(input, output) {
   
   output$scat_dist_price <- renderPlot({
     req(filtered_data())
-    ggplot(filtered_data(), aes(x = Price, y = Distance)) + 
-      geom_point(alpha=0.6) +
-      ggtitle('Scatter Plot of Distance from Central Business District versus Price')+
+    scat_title <- paste0('Scatterplot of ', input$num_var1, ' vs. ', input$num_var2)
+    ggplot(filtered_data(),
+           aes_string(x = input$num_var1, y = input$num_var2, color=input$var_across)) +
+      geom_point(alpha = 0.6) +
+      labs(title = scat_title) +
       theme_minimal()
   })
   
   output$hist_price_type <- renderPlot({
     req(filtered_data())
-    ggplot(filtered_data(), aes(x=Price)) +
-      geom_density(alpha=0.5, aes(fill=Type)) +
-      theme_minimal() +
-      ggtitle('Histogram of Frequency of Price for Each House Type')
+    hist_title <- paste0('Histogram of ', input$num_var1)
+    ggplot(filtered_data(), 
+           aes_string(x=input$num_var1, fill=input$var_across)) +
+      geom_density(alpha=0.5) +
+      labs(title=hist_title)+
+      theme_minimal()
   })
   
   output$bar_method_region <- renderPlot({
     req(filtered_data())
-    ggplot(filtered_data() |> drop_na(Regionname, Method), aes(x = Regionname, fill = Method))+
+    bar_title <- paste0('Barplot of Count of Houses Sold by Region over ', input$var_across)
+    ggplot(filtered_data() |> drop_na('Regionname', input$var_across), aes_string(
+      x = 'Regionname', fill = input$var_across))+
     geom_bar() +
-    ggtitle('Bar Plot of Count of Houses Sold by Region over Method of Sale') +
+    ggtitle(bar_title) +
     theme_minimal() + coord_flip()
   })
   
   output$box_prop_type <- renderPlot({
     req(filtered_data())
-    ggplot(filtered_data()|> drop_na(Type, Propertycount), aes(x = Type, y=Propertycount, fill=Type)) +
-    geom_boxplot() +
-    ggtitle('Boxplots of Property Count versus Type') +
-    theme_minimal()
+    box_title <- paste0('Boxplot of ', input$num_var1, ' versus ', input$var_across)
+    ggplot(filtered_data()|> drop_na(input$var_across, input$num_var1), 
+           aes_string(x = input$var_across, y=input$num_var1, fill=input$var_across)) +
+      geom_boxplot() +
+      labs(title=box_title) +
+      theme_minimal()
   })
   
   output$facet_box_prop_type <-renderPlot({
     req(filtered_data())
-    ggplot(filtered_data()|> drop_na(Type, Propertycount, Method, Regionname), aes(x = Type, y=Propertycount,fill=Method))+
-      geom_boxplot() +
-      ggtitle('Facet of Boxplots of Property Count versus Type across Sale Method and Regions') +
+    facet_box_title <- paste0('Facet of Boxplots of ', input$num_var1, ' versus Type across Sale Method and Regions')
+    ggplot(filtered_data()|> drop_na(Type, Propertycount, Method, Regionname), 
+           aes_string(x = 'Type', y=input$num_var1))+
+      geom_boxplot(aes(fill=Method)) +
+      labs(title=facet_box_title) +
       facet_wrap(~ Regionname) +
       theme_minimal()
   })
+  
   output$anim_facet <- renderImage({
+    
 
     req(filtered_data())
     p <- ggplot(filtered_data(), aes(Distance, Price, size = Propertycount, colour = Regionname)) +
